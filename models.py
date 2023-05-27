@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy import Integer, String, Column, DateTime, ForeignKey
+from sqlalchemy import Integer, String, DECIMAL, Column, DateTime, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 
 
@@ -14,6 +14,17 @@ class User(Base):
     password = Column(String, nullable=False)
     email = Column(String, nullable=False)
     phone = Column(String, nullable=False)
+
+
+class Account(Base):
+    __tablename__ = 'accounts'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user = relationship('User')
+    number = Column(String, nullable=False)
+    type = Column(String, nullable=False)
+    amount = Column(DECIMAL, nullable=False)
 
 
 engine = create_engine("postgresql+psycopg2://postgres:12345@localhost:5432/BankApplication")

@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function() {
           if (xhr.status === 200) {
-              window.location.href = '/dashboard';
+              var userId = JSON.parse(xhr.responseText).user_id;
+              window.location.href = '/user/' + userId;
           } else {
               alert(xhr.responseText);
           }
@@ -53,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function() {
         if (xhr.status === 200) {
-          window.location.href = '/dashboard';
+          var userId = JSON.parse(xhr.responseText).user_id;
+          window.location.href = '/user/' + userId;
         }
         else {
           alert(xhr.responseText);
