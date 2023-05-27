@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Авторизация</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+  <h1>Авторизация</h1>
+
+    <div id="loginContainer">
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Имя пользователя">
+        <input type="password" id="password" placeholder="Пароль">
+        <button type="submit">Войти</button>
+      </form>
+    </div>
+
+    <div id="registerContainer" style="display: none;">
+      <form id="registerForm">
+        <input type="text" id="username" placeholder="Имя пользователя">
+        <input type="password" id="password" placeholder="Пароль">
+        <input type="text" id="email" placeholder="Электронная почта">
+        <input type="text" id="phone" placeholder="Телефон">
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+    </div>
+    <button id="registerButton">Зарегистрироваться</button>
+    <button id="loginButton" style="display: none;">У меня уже есть аккаунт</button>
+  </div>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
