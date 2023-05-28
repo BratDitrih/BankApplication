@@ -24,6 +24,7 @@ class Account(Base):
     user = relationship('User')
     number = Column(String, nullable=False)
     type = Column(String, nullable=False)
+    currency = Column(String, nullable=False)
     amount = Column(DECIMAL, nullable=False)
 
 

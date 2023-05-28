@@ -34,6 +34,7 @@ def get_user_accounts(user_id):
         accounts = session.query(Account).filter_by(user_id=user_id).all()
     return accounts
 
+
 def open_account(data):
     Session = sessionmaker(bind=engine)
     with Session() as session:
@@ -80,10 +81,17 @@ def transfer_money(data):
                 else:
                     try:
                         from_account.amount -= amount
-                        to_account.amount += amount
+                        to_account.amount += convert_to_other_currency(amount, from_account.currency, to_account.currency)
                         session.add_all([from_account, to_account])
                         session.commit()
                         return 'Перевод выполнен успешно'
                     except:
                         session.rollback()
     return 'Ошибка во время перевода'
+
+
+def convert_to_other_currency(amount, current_currency, other_currency):
+    rates = {'USD': 70, 'EUR': 80, 'RUB': 1}
+    current_exchange_rate = rates[current_currency]
+    other_exchange_rate = rates[other_currency]
+    return amount * current_exchange_rate / other_exchange_rate

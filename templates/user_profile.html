@@ -33,7 +33,7 @@
         <tr>
           <td>{{ account.number }}</td>
           <td>{{ account.type }}</td>
-          <td>{{ account.amount }}</td>
+          <td>{{ account.amount }} {{ account.currency}}</td>
           <td>
             <button>Подробнее</button>
             <button onclick="showPopup('{{ account.number }}')">Пополнить</button>
@@ -63,6 +63,12 @@
       <select id="accountType">
         <option value="Депозитный счет">Депозитный счет</option>
         <option value="Кредитный счет">Кредитный счет</option>
+      </select>
+      <label for="accountCurrency">Валюта:</label>
+      <select id="accountCurrency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
       </select>
       <button type="submit">Открыть</button>
     </form>

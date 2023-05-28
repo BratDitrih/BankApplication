@@ -31,11 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault();
   
       var typeInput = openAccountForm.querySelector('#accountType')
+      var currencyInput = openAccountForm.querySelector('#accountCurrency')
       var userId = openAccountForm.dataset.user_id;
       
       var formData = {
+        userId: userId,
         type: typeInput.value,
-        userId: userId
+        currency: currencyInput.value
       };
       
       var xhr = new XMLHttpRequest();
@@ -43,9 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function() {
           if (xhr.status === 200) {
+              alert('Счет успешно открыт');
               window.location.reload();
           } else {
-              alert(xhr.responseText);
+              alert('Не удалось открыть счет');
           }
       };
       xhr.send(JSON.stringify(formData));
@@ -72,9 +75,10 @@ document.addEventListener('DOMContentLoaded', function() {
           if (xhr.status === 200) {
               var popupContainer = document.getElementById('popupContainer');
               popupContainer.style.display = 'none';
+              alert('Счет успешно пополнен');
               window.location.reload();
           } else {
-              alert(xhr.responseText);
+              alert('Не удалось пополнить счет');
           }
       };
       xhr.send(JSON.stringify(formData));

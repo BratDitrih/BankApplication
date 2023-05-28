@@ -57,12 +57,14 @@ def open_account():
         digits.append(str(random.randint(1000, 9999)))
     number = ' '.join(digits)
     type = request.json.get('type')
+    currency = request.json.get('currency')
     amount = 0
 
     data = {
         'user_id': user_id, 
         'number': number, 
         'type': type,
+        'currency': currency,
         'amount': amount
         }
     account_id = database.open_account(data)
