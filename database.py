@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
+from decimal import Decimal
 from flask import jsonify
 from models import User, Account
 from payment import check_and_confirm_payment
@@ -49,7 +50,7 @@ def topup_account(data):
         account = session.query(Account).filter_by(number=data['account_number']).first()
         if account:
             try:
-                amount = int(data['amount'])
+                amount = Decimal(data['amount'])
                 if check_and_confirm_payment(data['phone_number'], amount):
                     account.amount += amount
                     session.add(account)
@@ -58,3 +59,31 @@ def topup_account(data):
             except:
                 session.rollback()
     return False
+
+
+def transfer_money(data):
+    Session = sessionmaker(bind=engine)
+    with Session() as session:
+        from_account_number = data['from_account_number']
+        to_account_number = data['to_account_number']
+        amount = Decimal(data['amount'])
+        from_account = session.query(Account).filter_by(number=from_account_number).first()
+        if not from_account:
+            return 'Счет с таким номером не найден'
+        else:
+            if from_account.amount < amount:
+                return 'Недостаточно средств'
+            else:
+                to_account = session.query(Account).filter_by(number=to_account_number).first()
+                if not to_account:
+                    return 'Счет для перевода не найден'
+                else:
+                    try:
+                        from_account.amount -= amount
+                        to_account.amount += amount
+                        session.add_all([from_account, to_account])
+                        session.commit()
+                        return 'Перевод выполнен успешно'
+                    except:
+                        session.rollback()
+    return 'Ошибка во время перевода'

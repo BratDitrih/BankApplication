@@ -10,7 +10,6 @@ function showPopup(accountNumber) {
 
 document.addEventListener('DOMContentLoaded', function() {
     var openAccountForm = document.getElementById('openAccountForm');
-    
     openAccountForm.addEventListener('submit', function(event) {
       event.preventDefault();
   
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
       };
       xhr.send(JSON.stringify(formData));
     });
-
 
     var topUpForm = document.getElementById('topUpForm');
     topUpForm.addEventListener('submit', function(event) {
@@ -64,5 +62,47 @@ document.addEventListener('DOMContentLoaded', function() {
       };
       xhr.send(JSON.stringify(formData));
   });
+
+    var transferForm = document.getElementById('transferForm');
+    transferForm.addEventListener('submit', function(event) {
+      event.preventDefault()
+
+      var fromAccountSelect = document.getElementById('fromAccount');
+      var toAccountInput = document.getElementById('toAccount');
+      var amountInput = document.getElementById('transferAamount');
+
+      var formData = {
+        fromAccountNumber: fromAccountSelect.value,
+        toAccountNumber: toAccountInput.value,
+        amount: amountInput.value
+      }
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/account/transfer');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText).status;
+          switch (response) {
+            case 'Перевод выполнен успешно':
+              alert('Перевод выполнен успешно');
+              window.location.reload();
+              break;
+            case 'Недостаточно средств':
+              alert('На счету недостаточно средств');
+              break;
+            case 'Счет для перевода не найден':
+              alert('Счет для перевода не найден');  
+              break;
+            default:
+              break;
+          }
+        }
+        else {
+          alert(xhr.responseText);
+        }
+      };
+      xhr.send(JSON.stringify(formData));
+    });
 });
   
