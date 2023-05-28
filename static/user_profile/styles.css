@@ -38,7 +38,7 @@ nav ul li a {
   text-decoration: none;
 }
 
-.accounts-section, .open-account-section, .transfer-section {
+.section {
   margin-bottom: 20px;
 }
 
@@ -58,9 +58,10 @@ form label {
 }
 
 form input, form select {
+  display: block;
   padding: 10px;
   margin-bottom: 10px;
-  width: 100%;
+  width: 25%;
   box-sizing: border-box;
 }
 

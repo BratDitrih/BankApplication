@@ -26,6 +26,7 @@ function exit() {
 
 document.addEventListener('DOMContentLoaded', function() {
     showSection("accounts");
+
     var openAccountForm = document.getElementById('openAccountForm');
     openAccountForm.addEventListener('submit', function(event) {
       event.preventDefault();
@@ -120,10 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
         else {
-          alert(xhr.responseText);
+          alert('Проверьте правильность введенных данных');
         }
       };
       xhr.send(JSON.stringify(formData));
+
+      toAccountInput.value = '';
+      amountInput.value = '';
     });
 });
   

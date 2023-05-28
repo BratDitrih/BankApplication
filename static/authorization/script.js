@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var loginButton = document.getElementById('loginButton');
-    var registerButton = document.getElementById('registerButton');
-    var loginContainer = document.getElementById('loginContainer');
-    var registerContainer = document.getElementById('registerContainer');
-    var loginForm = document.getElementById('loginForm');
-    var registerForm = document.getElementById('registerForm');
     
     loginForm.addEventListener('submit', function(event) {
       event.preventDefault();
   
+      var loginForm = document.getElementById('loginForm');
+
       var usernameInput = loginForm.querySelector('#username')
       var passwordInput = loginForm.querySelector('#password')
       
@@ -36,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     registerForm.addEventListener('submit', function(event) {
       event.preventDefault();
+
+      var registerForm = document.getElementById('registerForm');
 
       var usernameInput = registerForm.querySelector('#username')
       var passwordInput = registerForm.querySelector('#password')
@@ -69,19 +67,24 @@ document.addEventListener('DOMContentLoaded', function() {
       phoneInput.value = '';
     });
     
-
-    registerButton.addEventListener('click', function() {
-      loginContainer.style.display = 'none';
-      registerContainer.style.display = 'block';
-      registerButton.style.display = 'none';
-      loginButton.style.display = 'block';
-    });
+    var loginButton = document.getElementById('loginButton');
+    var loginContainer = document.getElementById('loginContainer');
+    
+    var registerButton = document.getElementById('registerButton');
+    var registerContainer = document.getElementById('registerContainer');
 
     loginButton.addEventListener('click', function() {
       loginContainer.style.display = 'block';
       registerContainer.style.display = 'none';
       registerButton.style.display = 'block';
       loginButton.style.display = 'none';
+    });
+    
+    registerButton.addEventListener('click', function() {
+      loginContainer.style.display = 'none';
+      registerContainer.style.display = 'block';
+      registerButton.style.display = 'none';
+      loginButton.style.display = 'block';
     });
 });
   
