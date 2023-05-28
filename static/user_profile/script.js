@@ -8,7 +8,24 @@ function showPopup(accountNumber) {
   topUpForm.dataset.account_number = accountNumber;
 }
 
+function showSection(sectionId) {
+  var sections = document.getElementsByClassName('section');
+  for (var i = 0; i < sections.length; i++) {
+    sections[i].style.display = 'none';
+  }
+
+  var selectedSection = document.getElementById(sectionId);
+  if (selectedSection) {
+    selectedSection.style.display = 'block';
+  }
+}
+
+function exit() {
+  window.location.href = '/';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    showSection("accounts");
     var openAccountForm = document.getElementById('openAccountForm');
     openAccountForm.addEventListener('submit', function(event) {
       event.preventDefault();

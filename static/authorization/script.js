@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
               var userId = JSON.parse(xhr.responseText).user_id;
               window.location.href = '/user/' + userId;
           } else {
-              alert(xhr.responseText);
+              alert("Неправильный логин или пароль");
           }
       };
       xhr.send(JSON.stringify(formData));
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
           window.location.href = '/user/' + userId;
         }
         else {
-          alert(xhr.responseText);
+          alert("Неправильный логин или пароль");
         }
       };
       xhr.send(JSON.stringify(formData));
