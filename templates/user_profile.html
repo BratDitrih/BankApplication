@@ -19,14 +19,14 @@
         </tr>
       </thead>
       <tbody>
-        {% for account in accounts %}
+        {% for account in accounts | sort(attribute='number') %}
         <tr>
           <td>{{ account.number }}</td>
           <td>{{ account.type }}</td>
           <td>{{ account.amount }}</td>
           <td>
             <button>Подробнее</button>
-            <button>Перевод</button>
+            <button onclick="showPopup('{{ account.number }}')">Пополнить</button>
           </td>
         </tr>
         {% endfor %}
@@ -34,9 +34,21 @@
     </table>
   </section>
 
+  <div id="popupContainer" style="display: none;">
+    <div class="popup">
+      <h2>Пополнение счета</h2>
+      <form id="topUpForm" data-account_number="">
+        <label for="accountNumber" id="accountNumberLabel"></label>
+        <input type="text" id="phoneNumber" placeholder="Номер телефона">
+        <input type="text" id="amount" placeholder="Сумма пополнения">
+        <button type="submit">Подтвердить</button>
+    </form>
+    </div>
+  </div>
+
   <section class="open-account-section">
     <h2>Открыть новый счет</h2>
-    <form id="openAccountForm" data-user_id="{{ user_id}}">
+    <form id="openAccountForm" data-user_id="{{ user_id }}">
       <label for="accountType">Тип счета:</label>
       <select id="accountType">
         <option value="Депозитный счет">Депозитный счет</option>

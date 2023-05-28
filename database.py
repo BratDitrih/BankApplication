@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 from flask import jsonify
 from models import User, Account
+from payment import check_and_confirm_payment
 
 engine = create_engine("postgresql+psycopg2://postgres:12345@localhost:5432/BankApplication")
 
@@ -40,3 +41,20 @@ def open_account(data):
         session.commit()
         result = account.id
     return result
+
+
+def topup_account(data):
+    Session = sessionmaker(bind=engine)
+    with Session() as session:
+        account = session.query(Account).filter_by(number=data['account_number']).first()
+        if account:
+            try:
+                amount = int(data['amount'])
+                if check_and_confirm_payment(data['phone_number'], amount):
+                    account.amount += amount
+                    session.add(account)
+                    session.commit()
+                    return True
+            except:
+                session.rollback()
+    return False

@@ -52,6 +52,20 @@ def open_account():
         return jsonify({'account_id': account_id})
     else:
         return jsonify({'error': 'Не удалось открыть счет'}), 500
+    
+
+@app.route('/account/topup', methods=['POST'])
+def topup_account():
+    account_number = request.json.get('accountNumber')
+    phone_number = request.json.get('phoneNumber')
+    amount = request.json.get('amount')
+
+    data = {'account_number': account_number, 'phone_number': phone_number, 'amount': amount}
+    success = database.topup_account(data)
+    if success:
+        return jsonify({'status': 'Счет успешно пополнен'})
+    else:
+        return jsonify({'error': 'Не удалось пополнить счет'}), 500
 
 
 @app.route('/user/<int:user_id>')
