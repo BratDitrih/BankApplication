@@ -1,8 +1,16 @@
-from flask import Flask, render_template, request, redirect, abort, jsonify
+from flask import Flask, render_template, request, abort, jsonify
 import database
 import random
 
 app = Flask(__name__)
+
+
+@app.before_request
+def check_referer():
+    referer = request.referrer
+    if request.path != '/' and referer is None:
+        return abort(403)
+
 
 @app.route('/')
 def index():
@@ -104,7 +112,7 @@ def transfer_money():
         return jsonify({'error': 'Не удалось перевести деньги'}), 500
 
 
-@app.route('/user/<int:user_id>')
+@app.route('/user/<int:user_id>', methods=['GET'])
 def user_profile(user_id):
     user_accounts = database.get_user_accounts(user_id)
     return render_template('user_profile.html', user_id=user_id, accounts=user_accounts)
