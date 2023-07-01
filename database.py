@@ -5,7 +5,7 @@ from flask import jsonify
 from models import User, Account
 from payment import check_and_confirm_payment
 
-engine = create_engine("postgresql+psycopg2://postgres:12345@localhost:5432/BankApplication")
+engine = create_engine("sqlite:///BankApplicaton.db")
 
 
 def check_user_auth(username, password):

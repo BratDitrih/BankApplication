@@ -33,7 +33,7 @@
         <tr>
           <td>{{ account.number }}</td>
           <td>{{ account.type }}</td>
-          <td>{{ account.amount }} {{ account.currency}}</td>
+          <td>{{ account.amount|round(2) }} {{ account.currency}}</td>
           <td>
             <button>Подробнее</button>
             <button onclick="showPopup('{{ account.number }}')">Пополнить</button>

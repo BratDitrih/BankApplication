@@ -28,7 +28,7 @@ class Account(Base):
     amount = Column(DECIMAL, nullable=False)
 
 
-engine = create_engine("postgresql+psycopg2://postgres:12345@localhost:5432/BankApplication")
+engine = create_engine("sqlite:///BankApplicaton.db")
 
 Base.metadata.create_all(engine)
 
